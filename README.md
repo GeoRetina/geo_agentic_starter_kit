@@ -2,6 +2,8 @@
 
 A modern, flexible foundation for building AI-powered agentic geospatial web applications. This starter kit brings together cutting-edge technologies to enable intelligent spatial data processing, visualization, and analysis while following best practices for maintainable code architecture.
 
+> **ℹ️ Note:** This repository is continuously updated as new tutorials are added to the YouTube channel. Check back regularly for new features and improvements. The implementation is not complete yet.
+
 ## Features
 
 - 🗺️ **Interactive Maps**: Built with MapLibre GL for performance and flexibility
@@ -101,8 +103,6 @@ The project uses MapLibre GL for rendering maps with OpenStreetMap data:
 This project is developed in conjunction with a YouTube tutorial series that walks through building AI-powered geospatial applications. Follow along with the series to learn how to build and extend this starter kit:
 
 [GeoRetina AI & Geospatial Development Tutorials](https://www.youtube.com/playlist?list=PLxZevhetcP5xWyH5LOT4FXk1HLmW7X-5E)
-
-**Note:** This repository is continuously updated as new tutorials are added to the YouTube channel. Check back regularly for new features and improvements.
 
 ## Scripts
 
