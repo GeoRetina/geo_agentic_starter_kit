@@ -49,7 +49,7 @@ The project follows a feature-wise organization (similar to Feature-Sliced Desig
 
 ### Prerequisites
 
-- Node.js 18.x or higher
+- Node.js 18.x or higher ([Download](https://nodejs.org/en/download/))
 - npm or yarn
 
 ### Installation
