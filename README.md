@@ -121,3 +121,10 @@ This starter kit is continuously evolving. Here are some planned enhancements:
 - [ ] **Advanced Analysis Tools**: Integrate more Turf.js functions for client-side spatial analysis
 - [ ] **AI Agents**: Create specialized geospatial agents for data processing and insights
 - [ ] **Satellite Imagery**: Add support for remote sensing data analysis and visualization
+
+## Follow Us
+
+- 🌐 Website: https://www.georetina.com
+- 🔗 LinkedIn (Personal): https://www.linkedin.com/in/shahab-jozdani-phd-a3978a189/
+- 🔗 LinkedIn (Company): https://www.linkedin.com/company/georetina
+- 𝕏: https://x.com/shahab_jozdani
