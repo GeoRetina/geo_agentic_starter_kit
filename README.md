@@ -4,6 +4,12 @@ A modern, flexible foundation for building AI-powered agentic geospatial web app
 
 > **ℹ️ Note:** This repository is continuously updated as new tutorials are added to the YouTube channel. Check back regularly for new features and improvements. The implementation is not complete yet.
 
+## YouTube Tutorial Series
+
+This project is developed in conjunction with a YouTube tutorial series that walks through building AI-powered geospatial applications. Follow along with the series to learn how to build and extend this starter kit:
+
+[GeoRetina AI & Geospatial Development Tutorials](https://www.youtube.com/playlist?list=PLxZevhetcP5xWyH5LOT4FXk1HLmW7X-5E)
+
 ## Features
 
 - 🗺️ **Interactive Maps**: Built with MapLibre GL for performance and flexibility
@@ -97,12 +103,6 @@ The project uses MapLibre GL for rendering maps with OpenStreetMap data:
 - The `MapDisplay` component in `features/map-display/components/MapDisplay.tsx` handles map initialization
 - Drawing tools are provided by `@mapbox/mapbox-gl-draw`
 - Add custom map layers in the `MapDisplay` component
-
-## YouTube Tutorial Series
-
-This project is developed in conjunction with a YouTube tutorial series that walks through building AI-powered geospatial applications. Follow along with the series to learn how to build and extend this starter kit:
-
-[GeoRetina AI & Geospatial Development Tutorials](https://www.youtube.com/playlist?list=PLxZevhetcP5xWyH5LOT4FXk1HLmW7X-5E)
 
 ## Scripts
 
