@@ -4,11 +4,12 @@ import { useRef } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { MapMenuDock } from "@/features/map-menu-dock/components/map-menu-dock";
-import { AnalysisResult } from "@/features/map-menu-dock/components/analysist-result";
+import { AnalysisResult } from "@/features/map-display/components/analysis-result";
 import { useMapInitialization } from "../hooks/use-map-initialization";
 import { useMapDraw } from "../hooks/use-map-draw";
 import { useGeospatialAnalysis } from "../hooks/use-geospatial-analysis";
 import type { LngLatBoundsLike } from "maplibre-gl";
+import { useMapStore } from "@/features/map-display/store/map-store";
 
 interface MapDisplayProps {
   initialCenter?: [number, number];
