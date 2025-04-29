@@ -53,11 +53,10 @@ export function AddressSearchContent({
       if (!response.ok)
         throw new Error(`Nominatim API error: ${response.statusText}`);
       const data: NominatimGeoJsonResponse = await response.json();
-      // console.log("Nominatim Response:", data); // DEBUG
 
       if (data.features && data.features.length > 0) {
         const result = data.features[0];
-        // console.log("Found Feature:", result); // DEBUG
+
         const bbox = result.bbox;
 
         if (!bbox || bbox.length !== 4) {
@@ -65,15 +64,11 @@ export function AddressSearchContent({
           throw new Error("Could not determine location bounds.");
         }
 
-        // console.log("Nominatim BBox:", bbox); // DEBUG
-
         // Correctly construct bounds using [minLng, minLat], [maxLng, maxLat]
         const bounds: LngLatBoundsLike = [
           [bbox[0], bbox[1]],
           [bbox[2], bbox[3]],
         ];
-
-        // console.log("Calculated Bounds for fitBounds:", bounds); // DEBUG
 
         onSearchResult(bounds);
         onClose();
@@ -109,7 +104,7 @@ export function AddressSearchContent({
           placeholder="Enter address..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           disabled={isLoading}
           className="pr-10"
           autoFocus
