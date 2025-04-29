@@ -1,4 +1,4 @@
-import { MapDisplay } from "@/features/map-display/components/MapDisplay";
+import { MapDisplay } from "@/features/map-display/components/map-display";
 
 export default function Home() {
   return (

@@ -8,10 +8,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { AddressSearchContent } from "@/features/geocoding/components/AddressSearch";
+import { AddressSearchContent } from "@/features/geocoding/components/address-search";
 import type { LngLatBoundsLike } from "maplibre-gl";
 
-interface GeospatialToolbarProps {
+interface MapMenuDockProps {
   selectedGeometryType: string | null;
   onBufferClick: (radius: number) => void;
   onDistanceClick: () => void;
@@ -20,14 +20,14 @@ interface GeospatialToolbarProps {
   onSearchResult: (bounds: LngLatBoundsLike) => void;
 }
 
-export function GeospatialToolbar({
+export function MapMenuDock({
   selectedGeometryType,
   onBufferClick,
   onDistanceClick,
   onAreaClick,
   onCentroidClick,
   onSearchResult,
-}: GeospatialToolbarProps) {
+}: MapMenuDockProps) {
   const [bufferRadius, setBufferRadius] = useState<number>(1);
   const [isBufferPopoverOpen, setIsBufferPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);

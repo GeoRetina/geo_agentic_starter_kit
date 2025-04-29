@@ -3,12 +3,11 @@
 import { useRef } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
-import { GeospatialToolbar } from "@/features/geospatial-tools/components/GeospatialToolbar";
-import { AnalysisResult } from "@/features/geospatial-tools/components/AnalysisResult";
-import { useMapInitialization } from "../hooks/useMapInitialization";
-import { useMapDraw } from "../hooks/useMapDraw";
-import { useGeospatialAnalysis } from "../hooks/useGeospatialAnalysis";
-// import { AddressSearch } from "@/features/geocoding/components/AddressSearch"; // No longer needed here
+import { MapMenuDock } from "@/features/map-menu-dock/components/map-menu-dock";
+import { AnalysisResult } from "@/features/map-menu-dock/components/analysist-result";
+import { useMapInitialization } from "../hooks/use-map-initialization";
+import { useMapDraw } from "../hooks/use-map-draw";
+import { useGeospatialAnalysis } from "../hooks/use-geospatial-analysis";
 import type { LngLatBoundsLike } from "maplibre-gl";
 
 interface MapDisplayProps {
@@ -34,14 +33,11 @@ export function MapDisplay({
   });
 
   // Initialize analysis hook (handles state and analysis logic)
-  const {
-    analysisResult,
-    clearAnalysis,
-    handleBufferClick,
-    handleDistanceClick,
-    handleAreaClick,
-    handleCentroidClick,
-  } = useGeospatialAnalysis({ mapRef, selectedFeature: null, isMapLoaded });
+  const { clearAnalysis } = useGeospatialAnalysis({
+    mapRef,
+    selectedFeature: null,
+    isMapLoaded,
+  });
 
   // Initialize draw hook (handles drawing and selection state)
   const { selectedFeature, selectedGeometryType } = useMapDraw({
@@ -79,23 +75,22 @@ export function MapDisplay({
         className="rounded-lg shadow-md"
       />
 
-      {/* Toolbar Component */}
-      <GeospatialToolbar
-        selectedGeometryType={selectedGeometryType}
-        onBufferClick={currentHandleBufferClick}
-        onDistanceClick={currentHandleDistanceClick}
-        onAreaClick={currentHandleAreaClick}
-        onCentroidClick={currentHandleCentroidClick}
-        onSearchResult={handleGeocodingResult}
-      />
-
-      {/* Analysis Result Popup */}
+      {/* Sidebar for analysis results */}
       <AnalysisResult
         isVisible={currentAnalysisResult.isVisible}
         title={currentAnalysisResult.title}
         value={currentAnalysisResult.value}
         unit={currentAnalysisResult.unit}
         onClose={currentClearAnalysis}
+      />
+      {/* Toolbar*/}
+      <MapMenuDock
+        selectedGeometryType={selectedGeometryType}
+        onBufferClick={currentHandleBufferClick}
+        onDistanceClick={currentHandleDistanceClick}
+        onAreaClick={currentHandleAreaClick}
+        onCentroidClick={currentHandleCentroidClick}
+        onSearchResult={handleGeocodingResult}
       />
     </div>
   );

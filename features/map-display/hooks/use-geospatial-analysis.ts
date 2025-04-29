@@ -7,7 +7,7 @@ import {
   calculatePolygonArea,
   createPointBuffer,
   calculateCentroid,
-} from "@/features/geospatial-analysis/lib/turfUtils";
+} from "@/features/geospatial-analysis/lib/turf-utils";
 import type {
   Feature,
   Point,
