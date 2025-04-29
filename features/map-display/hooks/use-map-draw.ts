@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  MutableRefObject,
-  useCallback,
-} from "react";
+import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import maplibregl, { IControl } from "maplibre-gl";
 import type { Feature, Geometry, FeatureCollection } from "geojson";
@@ -168,7 +162,7 @@ const drawStyles = [
 ];
 
 interface UseMapDrawProps {
-  mapRef: MutableRefObject<maplibregl.Map | null>;
+  mapRef: RefObject<maplibregl.Map | null>;
   isMapLoaded: boolean;
   onAnalysisClearNeeded: () => void;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, MutableRefObject } from "react";
+import { useState, useCallback, RefObject } from "react";
 import maplibregl from "maplibre-gl";
 import * as turf from "@turf/turf";
 import {
@@ -30,7 +30,7 @@ interface AnalysisResultState {
 }
 
 interface UseGeospatialAnalysisProps {
-  mapRef: MutableRefObject<maplibregl.Map | null>;
+  mapRef: RefObject<maplibregl.Map | null>;
   selectedFeature: Feature<Geometry> | null;
   isMapLoaded: boolean;
 }
