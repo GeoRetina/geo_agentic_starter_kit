@@ -51,8 +51,11 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+
+  /* Enhanced primary color - blue with higher saturation */
+  --primary: oklch(0.55 0.2 245);
   --primary-foreground: oklch(0.985 0 0);
+
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -63,11 +66,14 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+
+  /* Enhanced chart colors for geospatial visualization */
+  --chart-1: oklch(0.55 0.2 245); /* Blue - Primary */
+  --chart-2: oklch(0.65 0.18 190); /* Teal */
+  --chart-3: oklch(0.7 0.16 140); /* Green */
+  --chart-4: oklch(0.75 0.18 85); /* Yellow-Green */
+  --chart-5: oklch(0.65 0.22 45); /* Orange */
+
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -85,8 +91,11 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+
+  /* Enhanced primary colors for dark mode */
+  --primary: oklch(0.65 0.18 245);
+  --primary-foreground: oklch(0.145 0 0);
+
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -97,11 +106,14 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+
+  /* Enhanced chart colors for dark mode */
+  --chart-1: oklch(0.65 0.18 245); /* Blue - Primary */
+  --chart-2: oklch(0.6 0.16 190); /* Teal */
+  --chart-3: oklch(0.65 0.14 140); /* Green */
+  --chart-4: oklch(0.7 0.16 85); /* Yellow-Green */
+  --chart-5: oklch(0.6 0.2 45); /* Orange */
+
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -118,5 +130,109 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom map styles */
+.maplibregl-ctrl-group {
+  @apply shadow-md rounded-lg overflow-hidden !border-gray-200 dark:!border-gray-700;
+}
+
+.maplibregl-ctrl-group button {
+  @apply !bg-white/90 dark:!bg-slate-800/90 backdrop-blur-sm hover:!bg-gray-100 dark:hover:!bg-slate-700;
+}
+
+.maplibregl-ctrl-group button:not(:first-child) {
+  @apply !border-t-gray-200 dark:!border-t-gray-700;
+}
+
+.maplibregl-marker {
+  @apply !drop-shadow-md;
+}
+
+.maplibregl-popup {
+  @apply !drop-shadow-lg;
+}
+
+.maplibregl-popup-content {
+  @apply !bg-white/95 dark:!bg-slate-800/95 !backdrop-blur-sm !rounded-lg !border !border-gray-200 dark:!border-gray-700 !p-3 !shadow-none;
+}
+
+.maplibregl-popup-close-button {
+  @apply !top-1 !right-1 !text-gray-500 dark:!text-gray-400 hover:!text-gray-700 dark:hover:!text-gray-200 !rounded-full hover:!bg-gray-100 dark:hover:!bg-gray-700 !transition-colors;
+}
+
+/* Map drawing tools */
+.mapbox-gl-draw_ctrl-draw-btn {
+  @apply !bg-white/90 dark:!bg-slate-800/90 !backdrop-blur-sm !border-gray-200 dark:!border-gray-700 hover:!bg-gray-100 dark:hover:!bg-slate-700 !transition-colors;
+}
+
+.mapbox-gl-draw_ctrl-draw-btn.active {
+  @apply !bg-primary/10 dark:!bg-primary/20 !text-primary dark:!text-primary-foreground;
+}
+
+/* Custom glass-card effect for map overlays */
+.glass-card {
+  @apply bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/30 shadow-lg;
+}
+
+/* AI Chat animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.animate-fade-out-down {
+  animation: fadeOutDown 0.3s ease forwards;
+}
+
+.message-bubble {
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Typing animation */
+.typing-dot {
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+  }
+  40% {
+    transform: scale(1);
   }
 }

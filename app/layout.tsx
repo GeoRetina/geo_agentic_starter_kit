@@ -5,16 +5,33 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Geo Agentic Starter Kit",
-  description: "Geo Agentic Starter Kit",
+  title: "GeoAgentic Platform",
+  description:
+    "A professional geospatial analytics and visualization platform with advanced analysis capabilities",
+  keywords: [
+    "geospatial",
+    "GIS",
+    "maps",
+    "analytics",
+    "visualization",
+    "spatial analysis",
+  ],
+  authors: [{ name: "Geo Agentic Team" }],
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
 };
 
 export default function RootLayout({
@@ -23,9 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background to-background/95`}
       >
         {children}
       </body>
