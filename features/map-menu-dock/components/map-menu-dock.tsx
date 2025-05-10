@@ -86,18 +86,14 @@ export function MapMenuDock({
                   size="icon"
                   className={cn(
                     "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                    activeButton === "search"
-                      ? "bg-slate-100/90 dark:bg-slate-700/70 text-slate-900 dark:text-slate-100"
-                      : "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                    "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
                   )}
                   title="Search Address"
                 >
                   <Search
                     className={cn(
-                      "h-5 w-5 transition-all duration-300",
-                      activeButton === "search"
-                        ? "text-blue-500"
-                        : "group-hover:scale-110"
+                      "h-5 w-5 transition-all duration-300 group-hover:scale-110",
+                      activeButton === "search" ? "text-blue-500" : ""
                     )}
                   />
                   {activeButton === "search" && (
@@ -134,18 +130,14 @@ export function MapMenuDock({
                   size="icon"
                   className={cn(
                     "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                    activeButton === "geo"
-                      ? "bg-slate-100/90 dark:bg-slate-700/70 text-slate-900 dark:text-slate-100"
-                      : "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                    "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
                   )}
                   title="Geospatial Tools"
                 >
                   <DraftingCompass
                     className={cn(
-                      "h-5 w-5 transition-all duration-300",
-                      activeButton === "geo"
-                        ? "text-indigo-500"
-                        : "group-hover:scale-110"
+                      "h-5 w-5 transition-all duration-300 group-hover:scale-110",
+                      activeButton === "geo" ? "text-indigo-500" : ""
                     )}
                   />
                   {activeButton === "geo" && (
@@ -275,19 +267,15 @@ export function MapMenuDock({
               size="icon"
               className={cn(
                 "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                activeButton === "ai"
-                  ? "bg-amber-100/80 dark:bg-amber-900/50 text-amber-900 dark:text-amber-100"
-                  : "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
               )}
               title="AI Assistant"
               onClick={toggleAIChat}
             >
               <Sparkles
                 className={cn(
-                  "h-5 w-5 transition-all duration-300",
-                  activeButton === "ai"
-                    ? "text-amber-500"
-                    : "text-amber-500 group-hover:scale-110"
+                  "h-5 w-5 transition-all duration-300 group-hover:scale-110",
+                  activeButton === "ai" ? "text-amber-500" : "text-amber-500"
                 )}
               />
               {activeButton === "ai" && (
@@ -305,9 +293,7 @@ export function MapMenuDock({
               size="icon"
               className={cn(
                 "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                activeButton === "layers"
-                  ? "bg-blue-100/80 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100"
-                  : "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
               )}
               title="Layer Manager"
               onClick={() =>
@@ -316,8 +302,8 @@ export function MapMenuDock({
             >
               <Layers
                 className={cn(
-                  "h-5 w-5 transition-all duration-300 text-blue-500",
-                  activeButton === "layers" ? "" : "group-hover:scale-110"
+                  "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-blue-500",
+                  activeButton === "layers" ? "" : ""
                 )}
               />
               {activeButton === "layers" && (
@@ -335,9 +321,7 @@ export function MapMenuDock({
               size="icon"
               className={cn(
                 "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                activeButton === "import"
-                  ? "bg-green-100/80 dark:bg-green-900/50 text-green-900 dark:text-green-100"
-                  : "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
+                "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
               )}
               title="Import Data"
               onClick={() =>
@@ -346,8 +330,8 @@ export function MapMenuDock({
             >
               <FileUp
                 className={cn(
-                  "h-5 w-5 transition-all duration-300 text-green-500",
-                  activeButton === "import" ? "" : "group-hover:scale-110"
+                  "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-green-500",
+                  activeButton === "import" ? "" : ""
                 )}
               />
               {activeButton === "import" && (
