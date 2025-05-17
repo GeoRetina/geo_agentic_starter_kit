@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState, FormEvent, KeyboardEvent } from "react";
 
-import { ChatHeader } from "./ChatHeader";
-import { MessageList } from "./MessageList";
-import { ChatInput } from "./ChatInput";
+import { ChatHeader } from "./chat-header";
+import { MessageList } from "./message-list";
+import { ChatInput } from "./chat-input";
 
 interface AIChatProps {
   isOpen: boolean;
