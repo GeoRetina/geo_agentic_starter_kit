@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "spatial analysis",
   ],
   authors: [{ name: "Geo Agentic Team" }],
+};
+
+export const viewport: Viewport = {
   colorScheme: "dark light",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
