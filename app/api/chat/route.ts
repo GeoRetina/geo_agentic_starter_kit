@@ -1,4 +1,4 @@
-import { google } from "@ai-sdk/google";
+import { openai } from "@ai-sdk/openai";
 import { CoreMessage, streamText } from "ai";
 import {
   MAX_DURATION,
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   const result = await streamText({
-    model: google("gemini-2.0-flash-001"),
+    model: openai("gpt-4.1"),
     system: SYSTEM_MESSAGE,
     maxSteps: 10,
     onError: (error) => {
