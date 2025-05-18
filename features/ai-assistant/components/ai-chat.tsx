@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState, FormEvent, KeyboardEvent } from "react";
+import { useDrawStore } from "@/features/map-draw/store/draw-store";
 
 import { ChatHeader } from "./chat-header";
 import { MessageList } from "./message-list";
@@ -14,6 +15,8 @@ interface AIChatProps {
 }
 
 export function AIChat({ isOpen, onClose }: AIChatProps) {
+  const drawnFeature = useDrawStore((state) => state.drawnFeature);
+
   const {
     messages,
     input,
@@ -21,8 +24,13 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
     handleSubmit: originalHandleSubmit,
     isLoading,
     stop,
+    error,
   } = useChat({
     api: "/api/chat",
+    body: {
+      drawnFeature: drawnFeature ? JSON.stringify(drawnFeature) : undefined,
+    },
+    maxSteps: 10,
     initialMessages: [
       {
         id: "welcome-ai",

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import maplibregl, { IControl } from "maplibre-gl";
 import type { Feature, Geometry, FeatureCollection } from "geojson";
+import { useDrawStore } from "@/features/map-draw/store/draw-store";
 
 const EMPTY_FEATURE_COLLECTION: FeatureCollection = {
   type: "FeatureCollection",
@@ -176,8 +177,7 @@ export function useMapDraw({
   const [selectedGeometryType, setSelectedGeometryType] = useState<
     string | null
   >(null);
-  const [selectedFeature, setSelectedFeature] =
-    useState<Feature<Geometry> | null>(null);
+  const setDrawnFeature = useDrawStore((state) => state.setDrawnFeature);
 
   // Clears the analysis layer on the map
   const clearAnalysisLayer = useCallback(() => {
@@ -200,13 +200,13 @@ export function useMapDraw({
     const selected = drawRef.current.getSelected().features;
     if (selected.length > 0) {
       const feature = selected[0];
-      setSelectedFeature(feature);
+      setDrawnFeature(feature);
       setSelectedGeometryType(feature.geometry.type);
     } else {
-      setSelectedFeature(null);
+      setDrawnFeature(null);
       setSelectedGeometryType(null);
     }
-  }, [onAnalysisClearNeeded, clearAnalysisLayer]);
+  }, [onAnalysisClearNeeded, clearAnalysisLayer, setDrawnFeature]);
 
   useEffect(() => {
     if (!isMapLoaded || !mapRef.current || drawRef.current) return;
@@ -239,7 +239,16 @@ export function useMapDraw({
     map.on("draw.create", handleDrawEvent);
     map.on("draw.delete", handleDrawEvent);
     map.on("draw.update", handleDrawEvent);
-    map.on("draw.modechange", handleDrawEvent);
+    map.on("draw.modechange", (e) => {
+      handleDrawEvent();
+      if (
+        e.mode === "simple_select" &&
+        drawRef.current?.getSelected().features.length === 0
+      ) {
+        setDrawnFeature(null);
+        setSelectedGeometryType(null);
+      }
+    });
 
     // Cleanup listeners and control
     return () => {
@@ -260,7 +269,7 @@ export function useMapDraw({
       }
       drawRef.current = null;
     };
-  }, [mapRef, isMapLoaded, handleDrawEvent]);
+  }, [mapRef, isMapLoaded, handleDrawEvent, setDrawnFeature]);
 
-  return { drawRef, selectedFeature, selectedGeometryType };
+  return { drawRef, selectedGeometryType };
 }

@@ -8,6 +8,7 @@ import { AnalysisResult } from "@/features/map-display/components/analysis-resul
 import { useMapInitialization } from "../hooks/use-map-initialization";
 import { useMapDraw } from "../hooks/use-map-draw";
 import { useGeospatialAnalysis } from "../hooks/use-geospatial-analysis";
+import { useDrawStore } from "@/features/map-draw/store/draw-store";
 import type { LngLatBoundsLike } from "maplibre-gl";
 import { Loader2 } from "lucide-react";
 
@@ -34,7 +35,11 @@ export function MapDisplay({
     initialZoom,
   });
 
+  // Get the drawn feature from the store
+  const drawnFeature = useDrawStore((state) => state.drawnFeature);
+
   // Initialize analysis hook (handles state and analysis logic)
+  // For the initial clearAnalysis function, selectedFeature can be null
   const { clearAnalysis } = useGeospatialAnalysis({
     mapRef,
     selectedFeature: null,
@@ -42,13 +47,13 @@ export function MapDisplay({
   });
 
   // Initialize draw hook (handles drawing and selection state)
-  const { selectedFeature, selectedGeometryType } = useMapDraw({
+  const { selectedGeometryType } = useMapDraw({
     mapRef,
     isMapLoaded,
-    onAnalysisClearNeeded: clearAnalysis, // Link draw events to clearing analysis
+    onAnalysisClearNeeded: clearAnalysis,
   });
 
-  // Re-run analysis hook when selectedFeature changes to update handlers
+  // Re-run analysis hook when drawnFeature from the store changes
   const {
     analysisResult: currentAnalysisResult,
     handleBufferClick: currentHandleBufferClick,
@@ -56,7 +61,11 @@ export function MapDisplay({
     handleAreaClick: currentHandleAreaClick,
     handleCentroidClick: currentHandleCentroidClick,
     clearAnalysis: currentClearAnalysis,
-  } = useGeospatialAnalysis({ mapRef, selectedFeature, isMapLoaded });
+  } = useGeospatialAnalysis({
+    mapRef,
+    selectedFeature: drawnFeature,
+    isMapLoaded,
+  });
 
   // Callback for geocoding results
   const handleGeocodingResult = (bounds: LngLatBoundsLike) => {
