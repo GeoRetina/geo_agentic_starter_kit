@@ -1,10 +1,12 @@
+import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import { CoreMessage, streamText } from "ai";
 import {
   MAX_DURATION,
   SYSTEM_MESSAGE,
 } from "@/features/ai-assistant/lib/constants";
-import { geospatialTools } from "@/features/ai-assistant/lib/tools";
+import { geospatialTools } from "@/features/ai-assistant/lib/llm-tools/basic-geospatial-tools";
+import { geocodingTools } from "@/features/ai-assistant/lib/llm-tools/geocoding-tools";
 import type { Feature, Geometry } from "geojson";
 
 export const maxDuration = MAX_DURATION;
@@ -46,7 +48,10 @@ export async function POST(req: Request) {
       console.error("AI SDK streamText error:", error);
     },
     messages: updatedMessages,
-    tools: geospatialTools,
+    tools: {
+      ...geospatialTools,
+      ...geocodingTools,
+    },
   });
 
   return result.toDataStreamResponse();
