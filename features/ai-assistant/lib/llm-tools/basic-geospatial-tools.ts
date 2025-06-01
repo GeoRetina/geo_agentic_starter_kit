@@ -7,99 +7,13 @@ import {
   calculateCentroid,
 } from "@/features/geospatial-analysis/lib/turf-utils";
 import type { Feature, Point, Polygon } from "geojson";
-import { METRIC_UNITS_GEOJSON_ENUM } from "@/features/ai-assistant/lib/constants";
+import {
+  pointFeatureSchema,
+  polygonFeatureSchema,
+  featureSchema,
+  METRIC_UNITS_GEOJSON_ENUM,
+} from "./schemas/geojson-schemas";
 
-// Preprocessor to handle stringified JSON
-const parseJsonString = (val: unknown) => {
-  if (typeof val === "string") {
-    try {
-      return JSON.parse(val);
-    } catch (e) {
-      return val; // If parsing fails, Zod will catch the type mismatch
-    }
-  }
-  return val;
-};
-
-// Base GeoJSON Schemas
-const propertiesSchema = z.record(z.string(), z.any()).nullable().optional();
-
-const positionSchema = z
-  .array(z.number())
-  .min(2)
-  .max(3)
-  .describe("A single position: [longitude, latitude, optional altitude]");
-
-const pointGeometrySchema = z.object({
-  type: z.literal("Point"),
-  coordinates: positionSchema,
-});
-
-const pointFeatureObjectSchema = z.object({
-  type: z.literal("Feature"),
-  geometry: pointGeometrySchema,
-  properties: propertiesSchema,
-});
-
-export const pointFeatureSchema = z
-  .preprocess(parseJsonString, pointFeatureObjectSchema)
-  .describe("A GeoJSON Point Feature object. Can be a stringified JSON.");
-
-const linearRingSchema = z
-  .array(positionSchema)
-  .min(4)
-  .describe(
-    "A linear ring (array of positions). First and last position must be the same."
-  );
-
-const polygonCoordinatesSchema = z
-  .array(linearRingSchema)
-  .describe(
-    "Array of linear rings. First is exterior, others are interior holes."
-  );
-
-const polygonGeometrySchema = z.object({
-  type: z.literal("Polygon"),
-  coordinates: polygonCoordinatesSchema,
-});
-
-const polygonFeatureObjectSchema = z.object({
-  type: z.literal("Feature"),
-  geometry: polygonGeometrySchema,
-  properties: propertiesSchema,
-});
-
-export const polygonFeatureSchema = z
-  .preprocess(parseJsonString, polygonFeatureObjectSchema)
-  .describe("A GeoJSON Polygon Feature object. Can be a stringified JSON.");
-
-const lineStringCoordinatesSchema = z.array(positionSchema).min(2);
-const lineStringGeometrySchema = z.object({
-  type: z.literal("LineString"),
-  coordinates: lineStringCoordinatesSchema,
-});
-
-const genericGeometrySchema = z.union([
-  pointGeometrySchema,
-  polygonGeometrySchema,
-  lineStringGeometrySchema,
-
-  z.object({ type: z.string(), coordinates: z.any() }),
-]);
-
-const genericFeatureObjectSchema = z.object({
-  type: z.literal("Feature"),
-  geometry: genericGeometrySchema,
-  properties: propertiesSchema,
-});
-
-export const featureSchema = z
-  .preprocess(parseJsonString, genericFeatureObjectSchema)
-  .describe(
-    "A GeoJSON Feature (e.g., Point, Polygon, LineString). Can be a stringified JSON."
-  );
-
-// Tools definition using the refined schemas
 export const calculatePolygonAreaTool = tool({
   description:
     "Calculates the area of a GeoJSON Polygon feature in square meters.",
