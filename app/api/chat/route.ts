@@ -7,6 +7,7 @@ import {
 } from "@/features/ai-assistant/lib/constants";
 import { geospatialTools } from "@/features/ai-assistant/lib/llm-tools/basic-geospatial-tools";
 import { geocodingTools } from "@/features/ai-assistant/lib/llm-tools/geocoding-tools";
+import { rasterAnalysisTools } from "@/features/ai-assistant/lib/llm-tools/raster-analysis-tools";
 import type { Feature, Geometry } from "geojson";
 
 export const maxDuration = MAX_DURATION;
@@ -51,6 +52,7 @@ export async function POST(req: Request) {
     tools: {
       ...geospatialTools,
       ...geocodingTools,
+      ...rasterAnalysisTools,
     },
   });
 

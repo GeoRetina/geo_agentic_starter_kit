@@ -9,6 +9,7 @@ import {
   MapPin,
   Layers,
   X,
+  Leaf,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,9 @@ import { AIChat } from "@/features/ai-assistant/components/ai-chat";
 import type { LngLatBoundsLike } from "maplibre-gl";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { GeoTiffImportDialog } from "@/features/file-import/components/geo-tiff-import-dialog";
+import { NdviAnalysisDialog } from "@/features/geospatial-analysis/components/ndvi-analysis-dialog";
+import type { NdviAnalysisResult } from "@/features/geospatial-analysis/actions/perform-ndvi-analysis";
 
 interface MapMenuDockProps {
   selectedGeometryType: string | null;
@@ -55,12 +59,16 @@ export function MapMenuDock({
     setActiveButton(isAIChatOpen ? null : "ai");
   };
 
-  // Reset active button when AI chat is closed
   useEffect(() => {
     if (!isAIChatOpen && activeButton === "ai") {
       setActiveButton(null);
     }
   }, [isAIChatOpen, activeButton]);
+
+  const handleGenericNdviAnalysisComplete = (
+    result: NdviAnalysisResult,
+    layerName?: string
+  ) => {};
 
   return (
     <>
@@ -158,7 +166,7 @@ export function MapMenuDock({
                 <div className="bg-gradient-to-br from-indigo-50 to-white dark:from-slate-800 dark:to-slate-900 p-5 space-y-3">
                   <h3 className="text-sm font-medium mb-3 flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
                     <MapPin className="h-4 w-4" />
-                    <span>Geospatial Tools</span>
+                    <span>Vector Tools</span>
                   </h3>
 
                   {/* Buffer Tool Popover */}
@@ -214,7 +222,6 @@ export function MapMenuDock({
                     </PopoverContent>
                   </Popover>
 
-                  {/* Other Analysis Buttons */}
                   <Button
                     onClick={onDistanceClick}
                     disabled={selectedGeometryType !== "LineString"}
@@ -254,6 +261,26 @@ export function MapMenuDock({
                   >
                     Calculate Centroid
                   </Button>
+
+                  {/* Divider for Raster Tools */}
+                  <div className="pt-2 mt-2 border-t border-indigo-200/50 dark:border-indigo-700/30">
+                    <h3 className="text-sm font-medium my-3 flex items-center gap-2 text-teal-700 dark:text-teal-300">
+                      <Layers className="h-4 w-4" />
+                      <span>Raster Tools</span>
+                    </h3>
+                    <NdviAnalysisDialog
+                      onAnalysisComplete={handleGenericNdviAnalysisComplete}
+                    >
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start text-left rounded-lg transition-all duration-200 hover:bg-white/80 dark:hover:bg-slate-800/80 hover:text-teal-600 dark:hover:text-teal-400"
+                      >
+                        <Leaf className="mr-2 h-4 w-4 text-teal-500" /> NDVI
+                        Analysis
+                      </Button>
+                    </NdviAnalysisDialog>
+                    {/* Add other raster analysis tools here */}
+                  </div>
                 </div>
               </PopoverContent>
             </Popover>
@@ -302,8 +329,7 @@ export function MapMenuDock({
             >
               <Layers
                 className={cn(
-                  "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-blue-500",
-                  activeButton === "layers" ? "" : ""
+                  "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-blue-500"
                 )}
               />
               {activeButton === "layers" && (
@@ -315,33 +341,25 @@ export function MapMenuDock({
               <span className="sr-only">Layer Manager</span>
             </Button>
 
-            {/* File Import Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn(
-                "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
-                "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
-              )}
-              title="Import Data"
-              onClick={() =>
-                setActiveButton(activeButton === "import" ? null : "import")
-              }
-            >
-              <FileUp
+            {/* File Import Button now uses GeoTiffImportDialog */}
+            <GeoTiffImportDialog>
+              <Button
+                variant="ghost"
+                size="icon"
                 className={cn(
-                  "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-green-500",
-                  activeButton === "import" ? "" : ""
+                  "h-11 w-11 rounded-xl transition-all duration-300 relative overflow-hidden group",
+                  "hover:bg-slate-100/60 dark:hover:bg-slate-800/60"
                 )}
-              />
-              {activeButton === "import" && (
-                <motion.div
-                  layoutId="activeIndicator"
-                  className="absolute bottom-1 left-1/2 -translate-x-1/2 h-1 w-1/2 bg-green-500 rounded-full"
+                title="Import GeoTIFF Data"
+              >
+                <FileUp
+                  className={cn(
+                    "h-5 w-5 transition-all duration-300 group-hover:scale-110 text-green-500"
+                  )}
                 />
-              )}
-              <span className="sr-only">Import Data</span>
-            </Button>
+                <span className="sr-only">Import GeoTIFF Data</span>
+              </Button>
+            </GeoTiffImportDialog>
           </div>
         </motion.div>
       </div>

@@ -18,6 +18,10 @@
 /.next/
 /out/
 
+__pycache__
+
+/docs/
+
 /venv/
 # production
 /build
